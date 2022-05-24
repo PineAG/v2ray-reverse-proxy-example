@@ -1,0 +1,69 @@
+{
+    "$schema": "https://github.com/EHfive/v2ray-jsonschema/raw/main/v4-config.schema.json",
+    "log": {
+        "loglevel": "debug"
+    },
+    "reverse": {
+        "bridges": [
+            {
+                "domain": "pine.su.v2",
+                "tag": "bridge"
+            }
+        ]
+    },
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": "bridge",
+                "domain": ["full:pine.su.v2"],
+                "outboundTag": "server-forward"
+            },
+            {
+                "type": "field",
+                "inboundTag": "bridge",
+                "outboundTag": "freedom"
+            }
+        ]
+    },
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "client-inbound",
+            "settings": {
+                "domainStrategy": "AsIs",
+                "redirect": "127.0.0.1:10000",
+                "userLevel": 0
+            }
+        },
+        {
+            "tag": "server-forward",
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 10001,
+                        "users": [
+                            {
+                                "id": "2fb9eaac-6eae-4a2e-89a6-a9bc956204d9",
+                                "encryption": "none",
+                                "level": 0
+                            }
+                        ]
+
+                    }
+                ]
+            },
+            "streamSettings": {
+                "quicSettings": {
+                    "key": "<server-key>",
+                    "security": "aes-128-gcm",
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            }
+        }
+    ]
+}

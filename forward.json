@@ -1,0 +1,78 @@
+{
+    "$schema": "https://github.com/EHfive/v2ray-jsonschema/raw/main/v4-config.schema.json",
+    "log": {
+        "loglevel": "debug"
+    },
+    "reverse": {
+        "portals": [
+            {
+                "domain": "pine.su.v2",
+                "tag": "portal"
+            }
+        ]
+    },
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": "server-forward",
+                "outboundTag": "portal"
+            },
+            {
+                "type": "field",
+                "inboundTag": "forward-client",
+                "outboundTag": "portal"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "listen": "0.0.0.0",
+            "port": 10001,
+            "protocol": "vless",
+            "tag": "server-forward",
+            "settings": {
+                "decryption": "none",
+                "clients": [
+                    {
+                        "id": "2fb9eaac-6eae-4a2e-89a6-a9bc956204d9",
+                        "level": 0
+                    }
+                ]
+            },
+            "streamSettings": {
+                "quicSettings": {
+                    "key": "<server-key>",
+                    "security": "aes-128-gcm",
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            }
+        },
+        {
+            "listen": "0.0.0.0",
+            "port": 10002,
+            "protocol": "vless",
+            "tag": "forward-client",
+            "settings": {
+                "decryption": "none",
+                "clients": [
+                    {
+                        "id": "5d8bbf9d-f173-49bb-a3a9-29daf0f76634",
+                        "level": 0
+                    }
+                ]
+            },
+            "streamSettings": {
+                "quicSettings": {
+                    "key": "<client-key>",
+                    "security": "aes-128-gcm",
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            }
+        }
+    ]
+}
