@@ -6,7 +6,7 @@
     "reverse": {
         "portals": [
             {
-                "domain": "pine.su.v2",
+                "domain": "outer.reverse",
                 "tag": "portal"
             }
         ]

@@ -6,7 +6,7 @@
     "reverse": {
         "bridges": [
             {
-                "domain": "pine.su.v2",
+                "domain": "outer.reverse",
                 "tag": "bridge"
             }
         ]
@@ -16,23 +16,55 @@
             {
                 "type": "field",
                 "inboundTag": "bridge",
-                "domain": ["full:pine.su.v2"],
+                "domain": ["full:outer.reverse"],
                 "outboundTag": "server-forward"
             },
             {
                 "type": "field",
                 "inboundTag": "bridge",
-                "outboundTag": "freedom"
+                "outboundTag": "client-inbound"
+            },
+            {
+                "type": "field",
+                "inboundTag": "client-server",
+                "outboundTag": "real-outbound"
             }
         ]
     },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 10004,
+            "protocol": "vmess",
+            "tag": "client-server",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "3a5b8ab6-5369-4c28-979c-23f09141928b",
+                        "email": "pine@ag.mars",
+                        "security": "auto",
+                        "level": 0
+                    }
+                ]
+            }
+        }
+    ],
     "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "real-outbound",
+            "settings": {
+                "domainStrategy": "AsIs",
+                "redirect": "127.0.0.1:10000",
+                "userLevel": 0
+            }
+        },
         {
             "protocol": "freedom",
             "tag": "client-inbound",
             "settings": {
                 "domainStrategy": "AsIs",
-                "redirect": "127.0.0.1:10000",
+                "redirect": "127.0.0.1:10004",
                 "userLevel": 0
             }
         },
