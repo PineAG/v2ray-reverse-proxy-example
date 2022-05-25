@@ -28,6 +28,7 @@ v2ray -c client.json/forward.json/server.json
 * `10001`: 内网服务器-中继服务器连接端口
 * `10002`: 中继服务器-客户机连接端口
 * `10003`: 客户机向本地开放的端口，流量通向目标端口
+* `10004`: 用于解密端对端加密的Inbound端口
 * `outbounds/vnext/address`: 中继服务器IP
 
 ## 测试配置文件
