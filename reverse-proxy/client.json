@@ -1,0 +1,61 @@
+
+{
+    "$schema": "https://github.com/EHfive/v2ray-jsonschema/raw/main/v4-config.schema.json",
+    "log": {
+        "loglevel": "debug"
+    },
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": "local-inbound",
+                "outboundTag": "forward-client"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "protocol": "dokodemo-door",
+            "listen": "0.0.0.0",
+            "port": 10003,
+            "settings": {
+                "address": "0.0.0.0",
+                "port": 10003,
+                "network": "tcp,udp",
+                "followRedirect": false
+            },
+            "tag": "local-inbound"
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "forward-client",
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 10002,
+                        "users": [
+                            {
+                                "id": "5d8bbf9d-f173-49bb-a3a9-29daf0f76634",
+                                "encryption": "none",
+                                "level": 0
+                            }
+                        ]
+
+                    }
+                ]
+            },
+            "streamSettings": {
+                "quicSettings": {
+                    "key": "<client-key>",
+                    "security": "aes-128-gcm",
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            }
+        }
+    ]
+} 
